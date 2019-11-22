@@ -18,7 +18,7 @@ return [
         'client_id' => env('AZURE_AD_CLIENT_ID', ''),
         'client_secret' => env('AZURE_AD_CLIENT_SECRET', ''),
         // Force HTTPS
-        'redirect' => env('AZURE_AD_REDIRECT_URL', str_replace('http:', 'https', Request::root()).'/login/microsoft/callback')
+        'redirect' => env('AZURE_AD_REDIRECT_URL', str_replace('http:', 'https:', Request::root()).'/login/microsoft/callback')
     ],
 
     // The route to redirect the user to upon login.
