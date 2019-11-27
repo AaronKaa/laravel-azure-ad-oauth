@@ -17,8 +17,9 @@ return [
     'credentials' => [
         'client_id' => env('AZURE_AD_CLIENT_ID', ''),
         'client_secret' => env('AZURE_AD_CLIENT_SECRET', ''),
-        // Force HTTPS
-        'redirect' => env('AZURE_AD_REDIRECT_URL', str_replace('http:', 'https:', Request::root()).'/login/microsoft/callback')
+        'redirect' => env('AZURE_AD_REDIRECT_URL', Request::root() . '/login/microsoft/callback'),
+        'auth' => env('AZURE_AD_AUTH_URL', 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'),
+        'token' => env('AZURE_AD_TOKEN_URL', 'https://login.microsoftonline.com/common/oauth2/v2.0/token')
     ],
 
     // The route to redirect the user to upon login.

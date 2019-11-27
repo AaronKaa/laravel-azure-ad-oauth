@@ -15,12 +15,12 @@ class AzureOauthProvider extends AbstractProvider implements ProviderInterface
 
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://login.microsoftonline.com/common/oauth2/v2.0/authorize', $state);
+        return $this->buildAuthUrlFromBase(config('azure-oath.credentials.auth'), $state);
     }
 
     protected function getTokenUrl()
     {
-        return 'https://login.microsoftonline.com/common/oauth2/v2.0/token';
+        return config('azure-oath.credentials.token');
     }
 
     protected function getTokenFields($code)
@@ -35,7 +35,7 @@ class AzureOauthProvider extends AbstractProvider implements ProviderInterface
     {
         $response = $this->getHttpClient()->get('https://graph.microsoft.com/v1.0/me/', [
             'headers' => [
-                'Authorization' => 'Bearer '.$token,
+                'Authorization' => 'Bearer ' . $token,
             ],
         ]);
 
@@ -64,19 +64,19 @@ class AzureOauthProvider extends AbstractProvider implements ProviderInterface
     protected function mapUserToObject(array $user)
     {
         return (new User())->setRaw($user)->map([
-            'id'                => $user['id'],
-            'name'              => $user['displayName'],
-            'email'             => $user['mail'],
+            'id' => $user['id'],
+            'name' => $user['displayName'],
+            'email' => $user['mail'],
 
-            'businessPhones'    => $user['businessPhones'],
-            'displayName'       => $user['displayName'],
-            'givenName'         => $user['givenName'],
-            'jobTitle'          => $user['jobTitle'],
-            'mail'              => $user['mail'],
-            'mobilePhone'       => $user['mobilePhone'],
-            'officeLocation'    => $user['officeLocation'],
+            'businessPhones' => $user['businessPhones'],
+            'displayName' => $user['displayName'],
+            'givenName' => $user['givenName'],
+            'jobTitle' => $user['jobTitle'],
+            'mail' => $user['mail'],
+            'mobilePhone' => $user['mobilePhone'],
+            'officeLocation' => $user['officeLocation'],
             'preferredLanguage' => $user['preferredLanguage'],
-            'surname'           => $user['surname'],
+            'surname' => $user['surname'],
             'userPrincipalName' => $user['userPrincipalName'],
         ]);
     }
